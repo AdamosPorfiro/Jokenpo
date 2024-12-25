@@ -15,21 +15,21 @@ Tesoura ganha de Papel;
 Tesoura perde para Pedra;
 ================================
 '''
-
-'''
-Jogada escolhida pela máquina
-'''
+'''Bibliotecas usadas no app'''
 from random import choice
 from time import sleep
+
+'''Variaveis que somam os pontos da maquina e jogador'''
 Ponto_Jogador = 0
 Ponto_Computador = 0
-
-Opcoes = ['Pedra', 'Papel', 'Tesoura']
-Escolha_Computador = choice(Opcoes)
+Opcoes = ['Pedra', 'Papel', 'Tesoura'] #Lista que será acessada para definir a escolha do computador
 
 '''
-Escolha do jogador
+Escolha da maquina e jogador
 '''
+
+Escolha_Computador = choice(Opcoes) #Escolha aleatória do computador
+
 resp_1 = 'S'
 while resp_1 == 'S':
     resp = 'S'

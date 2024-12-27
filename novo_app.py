@@ -1,11 +1,10 @@
-
 class Jogadores:
 
     def __init__(self):
         self._Escolha_Computador = None
         self._Jogador = None
-        self._contador_computador = None
-        self._contador_jogador = None
+        self._contador_computador = 0
+        self._contador_jogador = 0
 
         
     def Escolhas(self):
@@ -22,19 +21,13 @@ class Jogadores:
 
         self._Escolha_Computador = choice(Opcoes) #Escolha aleatória do computador
         
-        resp = 'S'
-        while resp == 'S':
+        while True:
             self._Jogador = str(input('Escolha [ Pedra | Papel | Tesoura ]: ')).strip().title()
-            # if self._Jogador in {'Pedra', 'Papel', 'Tesoura'}:
-            #     resp = 'N'
-            # else:
-            #     resp = 'S'
             match self._Jogador:
                 case 'Pedra' | 'Papel' | 'Tesoura':
-                    resp = 'N'
+                    break
                 case _:
                     print('Opção inválida! Digite novamente')
-                    resp = 'S'
     
     def Exibir_inicio_jogo(self):
         
@@ -72,43 +65,41 @@ class Jogadores:
     ██║░░░░░╚█████╔╝
     ╚═╝░░░░░░╚════╝░\n''')
 
-    def Verificacao_do_vencedor(self):         
-        Ponto_Jogador = 0
-        Ponto_Computador = 0
+    def adicionar_pontos_jogador(self):
+        self._contador_jogador += 1
+    
+    def adicionar_pontos_computador(self):
+        self._contador_computador += 1
 
-        '''
-        Verifica quem é o vencedor e marca o ponto
-        '''
+    def exibir_pontos(self):
+        if self._contador_computador > self._contador_jogador:
+            print('\nGAME OVER, você perdeu!!!')
+            print(f'\nPontos jogador: {self._contador_jogador}\nPontos computador: {self._contador_computador}')
 
-        if self._Escolha_Computador in 'Pedra' and self._Jogador in 'Tesoura':
-            print(f'Computador: {self._Escolha_Computador} vs self._Jogador: {self._Jogador}','Você Perdeu!', sep='\n')
-            Ponto_Computador += 1
+        if self._contador_computador == self._contador_jogador:
+            print('\nGAME OVER, empatou!!!')
+            print(f'Pontos jogador: {self._contador_jogador}\nPontos computador: {self._contador_computador}')
 
-        elif self._Escolha_Computador in 'Papel' and self._Jogador in 'Pedra':
-            print(f'Computador: {self._Escolha_Computador} vs Jogador: {self._Jogador}','Você Perdeu!', sep='\n')
-            Ponto_Computador += 1
+        if self._contador_computador < self._contador_jogador:
+            print('\nGAME OVER, você venceu!!!')
+            print(f'Pontos jogador: {self._contador_jogador}\nPontos computador: {self._contador_computador}')
 
-        elif self._Escolha_Computador in 'Tesoura' and self._Jogador in 'Papel':
-            print(f'Computador: {self._Escolha_Computador} vs Jogador: {self._Jogador}','Você Perdeu!', sep='\n')
-            Ponto_Computador += 1
+    def Verificacao_do_vencedor(self):
 
-        elif self._Escolha_Computador in 'Pedra' and self._Jogador in 'Pedra':
-            print(f'Computador: {self._Escolha_Computador} vs Jogador: {self._Jogador}','Empate!', sep='\n')
-            Ponto_Computador += 1
-            Ponto_Jogador += 1
+        if self._Escolha_Computador == 'Pedra' and self._Jogador == 'Tesoura' or \
+           self._Escolha_Computador == 'Papel' and self._Jogador == 'Pedra' or \
+           self._Escolha_Computador == 'Tesoura' and self._Jogador == 'Papel':
+            self.adicionar_pontos_computador()
+            print(f"Computador escolheu: {self._Escolha_Computador}, você escolheu: {self._Jogador}")
+            print("Você perdeu, essa partida!")
 
-        elif self._Escolha_Computador in 'Papel' and self._Jogador in 'Papel':
-            print(f'Computador: {self._Escolha_Computador} vs Jogador: {self._Jogador}','Empate!', sep='\n')
-            Ponto_Computador += 1
-            Ponto_Jogador += 1
-
-        elif self._Escolha_Computador in 'Tesoura' and self._Jogador in 'Tesoura':
-            print(f'Computador: {self._Escolha_Computador} vs Jogador: {self._Jogador}','Empate!', sep='\n')
-            Ponto_Computador += 1
-            Ponto_Jogador += 1
+        elif self._Escolha_Computador == self._Jogador:
+            print(f"Computador escolheu: {self._Escolha_Computador}, você escolheu: {self._Jogador}")
+            print("Empatou, essa partida!")
+            self.adicionar_pontos_computador()
+            self.adicionar_pontos_jogador()
 
         else:
-            print(f'Computador: {self._Escolha_Computador} vs Jogador: {self._Jogador}','Você Venceu!', sep='\n')
-            Ponto_Jogador += 1
-
-        print(f'\nPontos Jogador: {Ponto_Jogador}\nPontos Computador: {Ponto_Computador}')
+            print(f"Computador escolheu: {self._Escolha_Computador}, você escolheu: {self._Jogador}")
+            print("Você venceu, a partida!")    
+            self.adicionar_pontos_jogador()

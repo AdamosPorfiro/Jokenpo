@@ -5,6 +5,7 @@ class Jogadores:
         self._Jogador = None
         self._contador_computador = 0
         self._contador_jogador = 0
+        self.continuar = None
 
         
     def Escolhas(self):
@@ -103,3 +104,11 @@ class Jogadores:
             print(f"Computador escolheu: {self._Escolha_Computador}, você escolheu: {self._Jogador}")
             print("Você venceu, a partida!")    
             self.adicionar_pontos_jogador()
+
+    # def Continuar_aplicacao(self):
+    #     while True:
+    #         self.continuar = str(input('Deseja continuar o jogo [S/N]: ')).strip().upper()
+    #         if self.continuar not in 'S' or 'N':
+    #             continue
+    #         else:
+    #             break
